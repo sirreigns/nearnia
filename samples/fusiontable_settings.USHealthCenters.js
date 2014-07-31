@@ -30,11 +30,11 @@ var MapsLib = MapsLib || {}; MapsLib.schemaVersion = 2;
     // See https://developers.google.com/fusiontables/docs/v1/migration_guide for more info
 
     // The encrypted Table ID of your Fusion Table (found under File => About)
-    MapsLib.fusionTableId = "1GBiESlYt_Lc9O5PLuLaii1L74HeY7G4O1fMh9OE";
+    MapsLib.fusionTableId = "1c5uoNh_kc5zHa2IX9UmVKIqZzxrWeVN-glk5weox";
 
     // *New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
     // *Important* this key is for demonstration purposes. please register your own.
-    MapsLib.googleApiKey ="AIzaSyAMVBSXes-6P-gWaxRj20GK8NT6WDVpozM";
+    MapsLib.googleApiKey ="AIzaSyBUzAnJidiC-iiTX7teTVZtZfZ5VUjkdJQ";
 
 
     // YOU CAN DELETE EVERYTHING AFTER THIS POINT AND STILL HAVE A WORKING APP. //
@@ -113,18 +113,20 @@ $.extend(MapsLib, {
 
     searchPage: { 
         allColumns: false,
-        distanceFilter: { 
-            entries: [ ["Anywhere", "0", true], ["2 miles"], ["8 miles"], ["100 miles"], ["500 miles"] ]
-        },
+        distanceFilter: {
+        entries: [ ["Anywhere", "0", true], ["2 miles"], ["8 miles"], ["100 miles"], ["500 miles"] ]
+                        },
         columns: [
-            { label: "Organization Type", type: "dropdown", foreach: "Grantee Organization Type Description",
-                entries: [
-                    ["Any", "", true],
-                ],
+            { label: "Business Name", type: "text", column: "Business Name"
              },
-            { label: "Name", type: "text", column: "Name" }
-        ]
-    },
+            { label: "Deal", type: "text", column: "Deal" 
+             },
+                 ],
+        columns: [
+            { label: "Cuisine", type: "dropdown", foreach: "Cuisine",
+                entries: [ ["I'm not picky", "", true], }
+                 ],
+                },
 
 
     ///////////////////////
@@ -132,13 +134,13 @@ $.extend(MapsLib, {
     ///////////////////////
 
     // Title bar (including title of website)
-    title: "U.S. Health Centers",
+    title: "Nearnia",
 
     // Contents of the About Page.  You can use "{title}" to insert your title.
     aboutPage: " \
         <h3>About {title}</h3> \
-        <p>This is a demonstration of a Mobile Template using Fusion Tables.    Developed by SF Brigade for Code For America, it's an adaptation of Derek Eder's searchable Fusion Table template, licensed under the <a href='https://github.com/derekeder/FusionTable-Map-Template/wiki/License' target='_blank'>MIT License</a>.    This particular application uses data from the <a href='http://datawarehouse.hrsa.gov/Download_HCC_LookALikes.aspx' target='_blank'>HRSA</a>.</p> \
-        <p>To use this template for your own Fusion Table data, <a href='https://github.com/sfbrigade/Mobile-Fusion-Tables' target='_blank'>clone this repository</a> and replace the fields inside fusiontable_settings.js to match your content.</p> \
+        <p>Nearnia is a startup company providing services to the restaurant industry and it's patrons. To the small restaurant, we offer a platform that funnels foot-traffic to their place of business during slow periods only. To the patron, we offer exclusive time-sensitive deals in driving distance. We are a win-win solution for a slowing industry. Most importantly, support your community! Bon appetit!</p> \
+        <p>Please visit us on the web at <a href='https://www.nearnia.com' target='_blank'> </a> Thank you!</p> \
         ",
 
     // If you already customized your marker styles and infoboxes within the Fusion Table,
@@ -149,24 +151,10 @@ $.extend(MapsLib, {
     //templateId: 3,
     
     // This will go in your style block.  Useful if customizing your infoboxes.
-    customCSS: " \
-        .infobox-header, .ui-li-desc, #entity-text { font-family: Arial, Helvetica, Geneva, sans-serif; white-space:normal;} \
-        .infobox-subheader { padding-top: 5px; } \
-        .infobox-map { width:220px; } \
-        .infobox-header { display:inline; padding-right: 10px; } \
-        .moreinfo { margin-left:7px; min-width:18px; position:absolute; \
-                top:45%; bottom:45%; min-height:18px; } \
-        .entity { float:left; font-size:medium; padding:5px; border:1px solid black; margin:2px 7px 5px 0px; } \
-        .entity.blue_box { display: none; background-color: #0060ed; color: white; } \
-        .entity.red_box { display: none; background-color: #fb6155; color: white; } \
-        .entity.orange_box { background-color: #ff9c00; color: white; } \
-        .entity.blue_box.Government { display: inherit; } \
-        .entity.red_box.Corporate { display: inherit; } \
-        .entity.orange_box.Government { display: none; } \
-        .entity.orange_box.Corporate { display: none; } \
-    ",
+   
 
     // customInfoboxHtml can be defined as a string or a function:
+
     //    STRING:    You can embed Handlebars expressions and variables.
     //    FUNCTION:  Returns an HTML string and takes two params: row and isListView
     //    "":        No infobox.
@@ -187,30 +175,7 @@ $.extend(MapsLib, {
     //                                  append "DESC" to sort in reverse
     //listViewSortByColumn: "Name",
 
-    customInfoboxHtml: ' \
-        {{#if isListView}} \
-            <div> \
-        {{else}} \
-            <div class="infobox-map"> \
-        {{/if}} \
-        <div class="entity blue_box {{row.Grantee_Organization_Type_Description}}"><span id="entity-text">.gov</span></div> \
-        <div class="entity red_box {{row.Grantee_Organization_Type_Description}}"><span id="entity-text">.com</span></div> \
-        <div class="entity orange_box {{row.Grantee_Organization_Type_Description}}"><span id="entity-text">.org</span></div> \
-        <h4 class="infobox-header">{{row.Name}}</h4> \
-        {{#if isListView}} \
-            <p class="ui-li-desc infobox-subheader"> \
-            {{row.Grantee_Organization_Type_Description}}<br> \
-            {{row.Address}}</p> \
-        {{else}} \
-            <p></p><p class="ui-li-desc"> \
-            {{row.Grantee_Organization_Type_Description}}<br> \
-            {{row.Address}}<br> \
-            {{#if row.URL}} \
-                <a href="{{row.URL}}" target="_blank">{{row.URL}}</a><br> \
-            {{/if}} \
-            <a href="tel:1{{row.Telephone_Number}}">{{row.Telephone_Number}}</a></p> \
-        {{/if}} \
-        </p></div>',
+        
                     
     // Infoboxes will also appear (unless blank) on your nearby or search address pins.
     // HTML is OK.  Use "{address}" to denote the entered address for addressPinInfobox.
@@ -234,7 +199,7 @@ $.extend(MapsLib, {
         center: "United States",
 
         // "X miles" or "X meters"
-        radius: "1500 miles"
+        radius: "25 miles"
     },
 
     // Set useNearbyLocation to false if you don't want to get the user's location.
@@ -247,7 +212,7 @@ $.extend(MapsLib, {
         boundsExceededMessage:      "You're currently outside the continental United States.    Defaulting to geographical center.",
 
         // use this zoom radius if starting at nearby location
-        nearbyZoomRadius:           "32 miles",
+        nearbyZoomRadius:           "7 miles",
 
         // Snap to nearby zoom radius when user hits "Nearby"?    Options are:
         // true              = always snap to zoom level
