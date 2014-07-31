@@ -30,11 +30,11 @@ var MapsLib = MapsLib || {}; MapsLib.schemaVersion = 2;
     // See https://developers.google.com/fusiontables/docs/v1/migration_guide for more info
 
     // The encrypted Table ID of your Fusion Table (found under File => About)
-    MapsLib.fusionTableId = "10zr7wF49yQWKB4A0vAtoKPfvvBPPZQ8BVEfAqDw";
+    MapsLib.fusionTableId = "12hrm7BL2EGB9t33imhjut6fGlE1GppcOgbg0rrGX";
 
     // *New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
     // *Important* this key is for demonstration purposes. please register your own.
-    MapsLib.googleApiKey ="AIzaSyAMVBSXes-6P-gWaxRj20GK8NT6WDVpozM";
+    MapsLib.googleApiKey ="AIzaSyBUzAnJidiC-iiTX7teTVZtZfZ5VUjkdJQ";
 
 
     // YOU CAN DELETE EVERYTHING AFTER THIS POINT AND STILL HAVE A WORKING APP. //
@@ -118,7 +118,7 @@ $.extend(MapsLib, {
     searchPage: { 
         allColumns: false,
         columns: [
-            { label: "Project Type", type: "dropdown", template: "'Project Type' CONTAINS '{text}'",
+            { label: "Project", type: "dropdown", template: "'Project Type' CONTAINS '{text}'",
                 entries: [
                 ["All Projects", "", true],
                 "Bicycle",
